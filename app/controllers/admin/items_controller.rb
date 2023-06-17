@@ -1,44 +1,43 @@
 class Admin::ItemsController < ApplicationController
   def new
+    @item = Item.new
   end
 
   def create
-    @model_class_name = ModelClassName.new(params[:model_class_name])
-
-    respond_to do |wants|
-      if @model_class_name.save
-        flash[:notice] = 'ModelClassName was successfully created.'
-        wants.html { redirect_to(@model_class_name) }
-        wants.xml  { render :xml => @model_class_name, :status => :created, :location => @model_class_name }
-      else
-        wants.html { render :action => "new" }
-        wants.xml  { render :xml => @model_class_name.errors, :status => :unprocessable_entity }
-      end
-    end
+  @item = Item.new(item_params)
+   if @item.save
+   redirect_to admin_items_path(@item.id)
+   else
+    @item = Item.all
+       render :index
+   end
   end
 
   def index
+   @item = Item.new
+   @items = Item.page(params[:page]).reverse_order
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def update
-    @model_class_name = ModelClassName.find(params[:id])
-
-    respond_to do |wants|
-      if @model_class_name.update_attributes(params[:model_class_name])
-        flash[:notice] = 'ModelClassName was successfully updated.'
-        wants.html { redirect_to(@model_class_name) }
-        wants.xml  { head :ok }
-      else
-        wants.html { render :action => "edit" }
-        wants.xml  { render :xml => @model_class_name.errors, :status => :unprocessable_entity }
-      end
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+    redirect_to admin_items_path(@item.id)
+    else
+        render :edit
     end
   end
 
+private
+
+  def item_params
+    params.require(:item).permit(:image, :name, :introduction, :price)
+  end
 end

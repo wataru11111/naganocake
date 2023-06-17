@@ -1,31 +1,37 @@
 class Public::CartItemsController < ApplicationController
+
+  def create
+  @cart_item = CartItem.new(cart_item_params)
+  @cart_item.customer_id = current_customer.id
+   if @cart_item.save
+   redirect_to cart_items_path
+   else
+    redirect_to item_path(@item.id)
+   end
+
+  end
+
   def index
+    @cart_items = current_customer.cart_items.all
   end
 
   def update
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(cart_item_params)
+    redirect_to cart_items_path
   end
 
   def destroy
-
+    @cart_item = CartItem.find(params[:id])
+    cart_item.destroy
+    redirect_to cart_items_path
   end
 
   def destroy_all
 
   end
 
-
-  def create
-    @model_class_name = ModelClassName.new(params[:model_class_name])
-
-    respond_to do |wants|
-      if @model_class_name.save
-        flash[:notice] = 'ModelClassName was successfully created.'
-        wants.html { redirect_to(@model_class_name) }
-        wants.xml  { render :xml => @model_class_name, :status => :created, :location => @model_class_name }
-      else
-        wants.html { render :action => "new" }
-        wants.xml  { render :xml => @model_class_name.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+ def cart_item_params
+    params.require(:cart_item).permit(:amount, :item_id, :customer_id)
+ end
 end

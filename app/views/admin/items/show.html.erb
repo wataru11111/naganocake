@@ -1,2 +1,17 @@
-<h1>Admin::Items#show</h1>
-<p>Find me in app/views/admin/items/show.html.erb</p>
+
+<div class="container">
+
+<% @items.each do |item| %>
+<p><%= image_tag item.get_image(100, 100) %></p>
+
+
+<h2><%= item.name %></h2>
+
+<h2><%= item.introduction %></h2>
+
+<p><%= item.price %></p>
+<%= f.submit 'カートに入れる' %>
+<% end %>
+
+
+</div>

@@ -2,4 +2,15 @@
 <div class="container">
 <h1>商品一覧</h1>
 
+<% @items.each do |item| %>
+<p><%= image_tag item.get_image(100, 100) %></p>
+
+<%= link_to item_path(item.id) do %>
+<p><%= item.name %></p>
+<% end %>
+
+<p><%= item.price %></p>
+<% end %>
+<%= paginate @items %>
+
 </div>

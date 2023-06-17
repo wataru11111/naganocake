@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :orders, only: [:show,]
-    resources :items, only: [:show, :index, :edit, :create, :update]
+    resources :items, only: [:new, :show, :index, :edit, :create, :update]
     resources :customers, only: [:show, :index, :edit, :update]
 
     get 'homes/top' => "homes#top"
@@ -23,9 +23,11 @@ Rails.application.routes.draw do
     get 'orders/confirmation' => "orders#confirmation"
     get 'orders/completion' => "orders#completion"
 
-    resources :cart_items, only: [:index, :update, :create]
+    resources :cart_items, only: [:index, :update, :create, :destroy]
 
-    resources :customers, only: [:show, :edit, :update]
+    get '/customers/show' => "customers#show"
+    get '/customers/information/edit' => "customers#information#edit"
+    get '/customers/information' => "customers#update"
     get 'customers/unsubscribe' => "customers#unsubscribe"
     get 'customers/withdrawal' => "customers#withdrawal"
     get '/about' => "homes#about"
