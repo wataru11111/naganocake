@@ -45,11 +45,8 @@
   </tbody>
 </table>
 </div>
-<% if params[:method_of_payment] == 0 %>
-  クレジットカード
-   <% else %>
-    銀行振込
-   <% end %>
+<%= @order.method_of_payment_i18n %>
+
 
    <% if params[:shipping_option] == 0 %>
    <%= current_customer.postal_code %>

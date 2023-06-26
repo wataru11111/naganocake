@@ -1,5 +1,6 @@
 class Customer < ApplicationRecord
 has_many :cart_items
+has_many :orders
 has_one_attached :image
 
  def get_image

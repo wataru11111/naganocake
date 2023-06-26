@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2023_06_12_125337) do
   create_table "order_products", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "item_id", null: false
-    t.boolean "purchase_price", null: false
+    t.integer "purchase_price", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2023_06_12_125337) do
     t.string "name", null: false
     t.integer "payment", null: false
     t.integer "delivery_charge", null: false
-    t.string "method_of_payment", null: false
+    t.integer "method_of_payment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

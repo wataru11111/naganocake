@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+
   def new
     @order = Order.new
   end
@@ -34,23 +35,22 @@ class Public::OrdersController < ApplicationController
     end
    redirect_to orders_completion_path
    else
-    redirect_to orders_confirmation_path(@cart_item.id)
+   render :new
    end
    end
 
 
 
   def index
-    @order = Order.find(params[:id])
+    @order = current_customer.orders
     @cart_items = current_customer.cart_items.all
-    @total = @cart_items.sum(&:subtotal) + @order.delivery_charge
   end
 
   def show
     @order = Order.find(params[:id])
+    @order_products = @order.order_products
     @cart_items = current_customer.cart_items.all
-    @order.delivery_charge = 800
-    @total = @cart_items.sum(&:subtotal) + @order.delivery_charge
+
   end
   def order_params
     params.require(:order).permit(:postal_code, :address, :name, :payment, :delivery_charge, :method_of_payment)

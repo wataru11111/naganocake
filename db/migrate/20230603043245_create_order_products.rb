@@ -3,7 +3,7 @@ class CreateOrderProducts < ActiveRecord::Migration[6.1]
     create_table :order_products do |t|
       t.integer :order_id,          null: false
       t.integer :item_id,           null: false
-      t.boolean :purchase_price,    null: false
+      t.integer :purchase_price,    null: false
       t.integer :quantity,          null: false
 
 
