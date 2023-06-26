@@ -1,2 +1,73 @@
-<h1>Public::Orders#confirmation</h1>
-<p>Find me in app/views/public/orders/confirmation.html.erb</p>
+<div class="container">
+ <h2>注文情報確認</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th>送料</th>
+      <th>商品合計</th>
+      <th>請求金額</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+    <tr>
+    <td>
+      <%= cart_item.item.name %>
+    </td>
+    <td>
+      <%= cart_item.item.price %>
+    </td>
+    <td>
+      <%= cart_item.amount %>
+    </td>
+
+  <td>
+  <%= cart_item.item.price * cart_item.amount %>
+  </td>
+  <% end %>
+
+  <td>
+    <%= @order.delivery_charge %>
+  </td>
+  <td>
+  <%= @cart_items.sum(&:subtotal) %>
+  </td>
+  <td>
+ <%= @total %>
+  </td>
+  </tr>
+
+  </tbody>
+</table>
+</div>
+<% if params[:method_of_payment] == 0 %>
+  クレジットカード
+   <% else %>
+    銀行振込
+   <% end %>
+
+   <% if params[:shipping_option] == 0 %>
+   <%= current_customer.postal_code %>
+   <%= current_customer.address %>
+   <%= current_customer.last_name %> <%= current_customer.first_name %>
+   <% else %>
+   <%= @order.postal_code %>
+   <%= @order.address %>
+   <%= @order.name %>
+   <% end %>
+
+ <%= form_with model: @order, url:orders_path do|f| %>
+ <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+ <%= f.hidden_field :method_of_payment, :value => @order.method_of_payment %>
+ <%= f.hidden_field :name, :value => @order.name %>
+ <%= f.hidden_field :delivery_charge, :value => @order.delivery_charge %>
+ <%= f.hidden_field :address, :value => @order.address %>
+ <%= f.hidden_field :payment, :value => @total %>
+
+<%= f.submit "注文を確定する", class: "btn btn-success" %>
+<% end %>

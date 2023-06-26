@@ -18,9 +18,8 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: 'homes#top'
-    resources :orders, only: [:show, :index,]
-    get 'orders/new' => "orders#new"
-    get 'orders/confirmation' => "orders#confirmation"
+    resources :orders, only: [:show, :index, :new, :create]
+    post 'orders/confirmation' => "orders#confirmation"
     get 'orders/completion' => "orders#completion"
 
     resources :cart_items, only: [:index, :update, :create, :destroy]

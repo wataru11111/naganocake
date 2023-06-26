@@ -5,8 +5,8 @@ class CreateOrders < ActiveRecord::Migration[6.1]
        t.string :postal_code,               null: false
        t.string :address,                   null: false
        t.string :name,                      null: false
-       t.boolean :payment,                  null: false
-       t.boolean :delivery_charge,          null: false
+       t.integer :payment,                  null: false
+       t.integer :delivery_charge,          null: false
        t.string :method_of_payment,         null: false
 
       t.timestamps
