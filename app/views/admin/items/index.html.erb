@@ -2,14 +2,32 @@
 
 <h1>商品一覧</h1>
 
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>税抜価格</th>
+    </tr>
+ </thead>
 
+<tbody>
 <% @items.each do |item| %>
-<p><%= item.id %></p>
+<tr>
+<td>
+<%= item.id %>
+</td>
+<td>
 <%= link_to admin_item_path(item.id) do %>
-<p><%= item.name %></p>
+<%= item.name %>
 <% end %>
-<p><%= item.price %></p>
+</td>
+<td>
+<%= item.price %>
 <% end %>
+</td>
+</tr>
+</tbody>
+</table>
 <%= paginate @items %>
-
 </div>

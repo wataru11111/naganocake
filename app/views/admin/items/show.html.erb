@@ -1,17 +1,17 @@
-
 <div class="container">
+<h2>商品詳細</h2>
 
-<% @items.each do |item| %>
-<p><%= image_tag item.get_image(100, 100) %></p>
+<p><%= image_tag @item.get_image(100, 100) %></p>
 
 
-<h2><%= item.name %></h2>
+<h2><%= @item.name %></h2>
 
-<h2><%= item.introduction %></h2>
+<h2><%= @item.introduction %></h2>
 
-<p><%= item.price %></p>
-<%= f.submit 'カートに入れる' %>
-<% end %>
+<p><%= @item.price %></p>
 
+<%= link_to edit_admin_item_path(@item.id) do %>
+　<p>編集する</p>
+　<% end %>
 
 </div>

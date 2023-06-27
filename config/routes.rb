@@ -21,14 +21,14 @@ Rails.application.routes.draw do
     post 'orders/confirmation' => "orders#confirmation"
     get 'orders/completion' => "orders#completion"
     resources :orders, only: [:show, :index, :new, :create]
-
+    delete "cart_items/destroy_all" => "cart_items#destroy_all"
     resources :cart_items, only: [:index, :update, :create, :destroy]
 
     get '/customers/show' => "customers#show"
-    get '/customers/information/edit' => "customers#information#edit"
-    get '/customers/information' => "customers#update"
+    get '/customers/information/edit' => "customers#edit"
+    patch '/customers/information' => "customers#update"
     get 'customers/unsubscribe' => "customers#unsubscribe"
-    get 'customers/withdrawal' => "customers#withdrawal"
+    patch 'customers/withdrawal' => "customers#withdrawal"
     get '/about' => "homes#about"
 
     resources :items, only: [:index, :show]
