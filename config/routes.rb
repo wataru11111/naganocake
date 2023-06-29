@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :items, only: [:new, :show, :index, :edit, :create, :update]
     resources :customers, only: [:show, :index, :edit, :update]
 
-    get 'homes/top' => "homes#top"
+    get '/' => "homes#top"
   end
 
   scope module: :public do
