@@ -1,26 +1,27 @@
 class Admin::CustomersController < ApplicationController
   def index
+    @customers = Customer.page(params[:page]).reverse_order
   end
 
   def show
+     @customer = Customer.find(params[:id])
   end
 
   def edit
+    @customer = Customer.find(params[:id])
   end
 
   def update
-    @model_class_name = ModelClassName.find(params[:id])
+    @customer = Customer.find(params[:id])
+   if @customer.update(customer_params)
+     redirect_to admin_customer_path(@customer.id)
+   else
+     render :edit
+   end
+  end
 
-    respond_to do |wants|
-      if @model_class_name.update_attributes(params[:model_class_name])
-        flash[:notice] = 'ModelClassName was successfully updated.'
-        wants.html { redirect_to(@model_class_name) }
-        wants.xml  { head :ok }
-      else
-        wants.html { render :action => "edit" }
-        wants.xml  { render :xml => @model_class_name.errors, :status => :unprocessable_entity }
-      end
-    end
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
   end
 
 end

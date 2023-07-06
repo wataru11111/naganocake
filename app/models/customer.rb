@@ -1,16 +1,12 @@
 class Customer < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
 has_many :cart_items
 has_many :orders
-belongs_to :adomi
 has_one_attached :image
-
- def get_image
-    if image.attached?
-      image
-    else
-      'no_image.jpg'
-    end
- end
 
 
   def get_image
@@ -20,8 +16,6 @@ has_one_attached :image
     end
     image
   end
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+
+
 end

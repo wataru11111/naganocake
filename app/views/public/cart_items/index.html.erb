@@ -1,4 +1,7 @@
 <div class="container">
+ <% if current_customer.cart_items.count == 0 %>
+<p>カート内商品ございません。</p>
+<% else %>
   <div class="row">
  <h2 class="col-md-6">ショッピングカート</h2>
 <%= link_to 'カートを空にする', cart_items_destroy_all_path, method: :delete, class: "btn btn-sm btn-danger col-md-3 offset-md-3" %>
@@ -42,11 +45,12 @@
 
 </table>
 
-<%= link_to items_path do %>
+<%= link_to root_path do %>
 <p>買い物を続ける</p>
-<% end %>
+    <% end %>
 
 <%= link_to new_order_path do %>
-<p>情報入力に進む</p>
-<% end %>
+<P>注文情報入力</P>
+    <% end %>
 </div>
+<% end %>

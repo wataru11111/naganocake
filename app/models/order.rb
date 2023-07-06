@@ -1,5 +1,4 @@
 class Order < ApplicationRecord
-  belongs_to :adomi
   belongs_to :customer
   has_many :order_products
 

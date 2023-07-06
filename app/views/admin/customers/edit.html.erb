@@ -1,7 +1,18 @@
 <div class="container">
   <h2>会員情報編集</h2>
 <p>会員ID <%= @customer.id %></p>
-<%= form_with model: @customer,url:admin_customer_path(customer.id), method: :patch do |f| %>
+<% if @customer.errors.any? %>
+    <div>
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= form_with model: @customer,url:admin_customer_path(@customer.id), method: :patch do |f| %>
     <div class="field">
       <%= f.label :姓 %><br />
       <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>
@@ -43,8 +54,8 @@
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
 
-       <div class="actions">
-      <%= f.submit "変更を保存" %>
-      </div>
+    <div class="actions">
+    <%= f.submit "変更を保存" %>
+    </div>
   <% end %>
   </div>
