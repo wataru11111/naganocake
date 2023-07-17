@@ -5,4 +5,17 @@
   <P>会員でない方も商品の閲覧はできますが、</P>
   <P>購入には会員登録が必要になります。</P>
 
+  <h2>新着商品</h2>
+  <% @items.each do |item| %>
+  <%= link_to item_path(item.id) do %>
+<p><%= image_tag item.get_image(20, 20) %></p>
+<% end %>
+
+
+<p><%= item.name %></p>
+
+<p><%= item.price %></p>
+<% end %>
+
+
 </div>

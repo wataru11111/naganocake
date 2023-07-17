@@ -11,6 +11,7 @@
       <th>住所</th>
       <th>電話番号</th>
       <th>メールアドレス</th>
+      <th>ステータス</th>
     </tr>
   </thead>
   <tbody>
@@ -32,10 +33,17 @@
    </td>
    <td>
       <%= @customer.telephone_number %>
+   </td>
     <td>
       <%= @customer.email %>
    </td>
-   </td>
+      <td>
+   <%if @customer.is_deleted %>
+      <h4>退会</h4>
+      <% else %>
+      <h4>有効</h4>
+      <% end %>
+      </td>
   </tr>
   </tbody>
 </table>

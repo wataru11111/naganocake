@@ -13,10 +13,10 @@
   <tbody>
     <tr>
     <td>
-      <%= @customer.last_name %> <%= @customer.first_name %>
+      <%= @order.name %>
    </td>
     <td>
-      <%= @order.created_at %>
+      <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M:%S') %>
    </td>
     <td>
       <%= @order.address %>
